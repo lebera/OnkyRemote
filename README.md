@@ -5,4 +5,4 @@ You can use any other driver, but then you need to change the configuration and 
 Then you need to edit content of the "OnkyoRemote.ini" file contained in this App (in Content/Resources/ directory), at least to specify the correct IP address of your Onkyo equipment.
 You can also create your own commands for any specific Onkyo equipment
 
-A precompiled version is available in the "release"
+A precompiled version is available in the "release" @ https://github.com/lebera/OnkyRemote/releases
