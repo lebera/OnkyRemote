@@ -1,0 +1,382 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9C1C38E81FFBF77800D245AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1C38E71FFBF77800D245AE /* AppDelegate.swift */; };
+		9C1C38EA1FFBF77800D245AE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1C38E91FFBF77800D245AE /* ViewController.swift */; };
+		9C1C38EC1FFBF77800D245AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C1C38EB1FFBF77800D245AE /* Assets.xcassets */; };
+		9C1C38EF1FFBF77800D245AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C1C38ED1FFBF77800D245AE /* Main.storyboard */; };
+		9C5D2EF92022D88E004BB477 /* INIParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5D2EF82022D88E004BB477 /* INIParser.swift */; };
+		9C5D2EFB2022EC1A004BB477 /* OnkyoConfig.ini in Resources */ = {isa = PBXBuildFile; fileRef = 9C5D2EFA2022EC1A004BB477 /* OnkyoConfig.ini */; };
+		9C60A2C4201E3A20006D8F33 /* castSW in Resources */ = {isa = PBXBuildFile; fileRef = 9C60A2C3201E3A20006D8F33 /* castSW */; };
+		9C99B85F1FFBFB590074758A /* OnkyoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C99B85E1FFBFB590074758A /* OnkyoViewController.swift */; };
+		9C99B8621FFCC0DF0074758A /* ytcpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 9C99B8611FFCC0DE0074758A /* ytcpsocket.c */; };
+		9C99B8641FFCC0EA0074758A /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C99B8631FFCC0EA0074758A /* Socket.swift */; };
+		9C99B8661FFCC0F20074758A /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C99B8651FFCC0F20074758A /* Result.swift */; };
+		9C99B8681FFCC0F80074758A /* TCPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C99B8671FFCC0F80074758A /* TCPClient.swift */; };
+		9C99B86A1FFCC0FE0074758A /* OnkyoClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C99B8691FFCC0FE0074758A /* OnkyoClient.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		9C1C38E41FFBF77800D245AE /* OnkyRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnkyRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C1C38E71FFBF77800D245AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9C1C38E91FFBF77800D245AE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9C1C38EB1FFBF77800D245AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9C1C38EE1FFBF77800D245AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9C1C38F01FFBF77800D245AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C1C38F11FFBF77800D245AE /* OnkyRemote.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OnkyRemote.entitlements; sourceTree = "<group>"; };
+		9C5D2EF82022D88E004BB477 /* INIParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = INIParser.swift; sourceTree = "<group>"; };
+		9C5D2EFA2022EC1A004BB477 /* OnkyoConfig.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OnkyoConfig.ini; sourceTree = "<group>"; };
+		9C60A2C3201E3A20006D8F33 /* castSW */ = {isa = PBXFileReference; lastKnownFileType = folder; path = castSW; sourceTree = "<group>"; };
+		9C60A2C6201E5B3C006D8F33 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		9C99B85E1FFBFB590074758A /* OnkyoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnkyoViewController.swift; sourceTree = "<group>"; };
+		9C99B8611FFCC0DE0074758A /* ytcpsocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ytcpsocket.c; sourceTree = "<group>"; };
+		9C99B8631FFCC0EA0074758A /* Socket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
+		9C99B8651FFCC0F20074758A /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		9C99B8671FFCC0F80074758A /* TCPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCPClient.swift; sourceTree = "<group>"; };
+		9C99B8691FFCC0FE0074758A /* OnkyoClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnkyoClient.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9C1C38E11FFBF77800D245AE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9C1C38DB1FFBF77800D245AE = {
+			isa = PBXGroup;
+			children = (
+				9C60A2C3201E3A20006D8F33 /* castSW */,
+				9C1C38E61FFBF77800D245AE /* OnkyRemote */,
+				9C1C38E51FFBF77800D245AE /* Products */,
+				9C60A2C5201E5B3C006D8F33 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		9C1C38E51FFBF77800D245AE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9C1C38E41FFBF77800D245AE /* OnkyRemote.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9C1C38E61FFBF77800D245AE /* OnkyRemote */ = {
+			isa = PBXGroup;
+			children = (
+				9C5D2EFA2022EC1A004BB477 /* OnkyoConfig.ini */,
+				9C5D2EF82022D88E004BB477 /* INIParser.swift */,
+				9C99B8601FFCC07F0074758A /* SwiftSocket */,
+				9C1C38E71FFBF77800D245AE /* AppDelegate.swift */,
+				9C99B85E1FFBFB590074758A /* OnkyoViewController.swift */,
+				9C1C38E91FFBF77800D245AE /* ViewController.swift */,
+				9C1C38EB1FFBF77800D245AE /* Assets.xcassets */,
+				9C1C38ED1FFBF77800D245AE /* Main.storyboard */,
+				9C1C38F01FFBF77800D245AE /* Info.plist */,
+				9C1C38F11FFBF77800D245AE /* OnkyRemote.entitlements */,
+			);
+			path = OnkyRemote;
+			sourceTree = "<group>";
+		};
+		9C60A2C5201E5B3C006D8F33 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9C60A2C6201E5B3C006D8F33 /* MediaPlayer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9C99B8601FFCC07F0074758A /* SwiftSocket */ = {
+			isa = PBXGroup;
+			children = (
+				9C99B8691FFCC0FE0074758A /* OnkyoClient.swift */,
+				9C99B8671FFCC0F80074758A /* TCPClient.swift */,
+				9C99B8651FFCC0F20074758A /* Result.swift */,
+				9C99B8631FFCC0EA0074758A /* Socket.swift */,
+				9C99B8611FFCC0DE0074758A /* ytcpsocket.c */,
+			);
+			path = SwiftSocket;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9C1C38E31FFBF77800D245AE /* OnkyRemote */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9C1C38F41FFBF77800D245AE /* Build configuration list for PBXNativeTarget "OnkyRemote" */;
+			buildPhases = (
+				9C1C38E01FFBF77800D245AE /* Sources */,
+				9C1C38E11FFBF77800D245AE /* Frameworks */,
+				9C1C38E21FFBF77800D245AE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OnkyRemote;
+			productName = OnkyRemote;
+			productReference = 9C1C38E41FFBF77800D245AE /* OnkyRemote.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9C1C38DC1FFBF77800D245AE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = Onkyo;
+				TargetAttributes = {
+					9C1C38E31FFBF77800D245AE = {
+						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 9C1C38DF1FFBF77800D245AE /* Build configuration list for PBXProject "OnkyRemote" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9C1C38DB1FFBF77800D245AE;
+			productRefGroup = 9C1C38E51FFBF77800D245AE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9C1C38E31FFBF77800D245AE /* OnkyRemote */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9C1C38E21FFBF77800D245AE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C60A2C4201E3A20006D8F33 /* castSW in Resources */,
+				9C1C38EC1FFBF77800D245AE /* Assets.xcassets in Resources */,
+				9C1C38EF1FFBF77800D245AE /* Main.storyboard in Resources */,
+				9C5D2EFB2022EC1A004BB477 /* OnkyoConfig.ini in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9C1C38E01FFBF77800D245AE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C99B8681FFCC0F80074758A /* TCPClient.swift in Sources */,
+				9C99B8661FFCC0F20074758A /* Result.swift in Sources */,
+				9C99B85F1FFBFB590074758A /* OnkyoViewController.swift in Sources */,
+				9C99B86A1FFCC0FE0074758A /* OnkyoClient.swift in Sources */,
+				9C5D2EF92022D88E004BB477 /* INIParser.swift in Sources */,
+				9C1C38EA1FFBF77800D245AE /* ViewController.swift in Sources */,
+				9C99B8641FFCC0EA0074758A /* Socket.swift in Sources */,
+				9C99B8621FFCC0DF0074758A /* ytcpsocket.c in Sources */,
+				9C1C38E81FFBF77800D245AE /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		9C1C38ED1FFBF77800D245AE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9C1C38EE1FFBF77800D245AE /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9C1C38F21FFBF77800D245AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9C1C38F31FFBF77800D245AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+			};
+			name = Release;
+		};
+		9C1C38F51FFBF77800D245AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = Q7K89MYWYS;
+				INFOPLIST_FILE = OnkyRemote/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = onkyo.com.OnkyRemote;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		9C1C38F61FFBF77800D245AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = Q7K89MYWYS;
+				INFOPLIST_FILE = OnkyRemote/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = onkyo.com.OnkyRemote;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9C1C38DF1FFBF77800D245AE /* Build configuration list for PBXProject "OnkyRemote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9C1C38F21FFBF77800D245AE /* Debug */,
+				9C1C38F31FFBF77800D245AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9C1C38F41FFBF77800D245AE /* Build configuration list for PBXNativeTarget "OnkyRemote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9C1C38F51FFBF77800D245AE /* Debug */,
+				9C1C38F61FFBF77800D245AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9C1C38DC1FFBF77800D245AE /* Project object */;
+}
