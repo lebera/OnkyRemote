@@ -28,17 +28,6 @@ class OnkyoViewController: NSViewController {
         button3.title = AppDelegate.Config.Button3.name
         volume.maxValue = (Double)(AppDelegate.Config.Volume.maxVol)!
         volume.doubleValue = (Double)(AppDelegate.Config.Volume.defaultVol)!
-        // Automatic connection
-        var log:String = "Connecting...\n"
-        switch client.connect(timeout: (Int)(AppDelegate.Config.OnkyoClient.timeout)!) {
-        case .success:
-            log.append("Client connected")
-        case .failure(let error):
-            log.append(String(describing: error))
-        }
-        NSLog("Debug: '%@'", log)
-        setVolume(volume, val: Int(volume.doubleValue))
-
 }
     
     
@@ -56,6 +45,57 @@ extension OnkyoViewController {
             fatalError("OnkyRemote App is corrupted")
         }
         return viewcontroller
+    }
+    
+    func clientConnect() {
+        switch client.connect(timeout: (Int)(AppDelegate.Config.OnkyoClient.timeout)!) {
+        case .success:
+            powerButton.title = AppDelegate.Config.PowerButton.nameOn
+            powerButton.state = NSControl.StateValue.on
+            NSLog("Debug: Client is connected")
+        case .failure(let error):
+            powerButton.title = AppDelegate.Config.PowerButton.nameOff
+            powerButton.state = NSControl.StateValue.off
+            localButton.state = NSControl.StateValue.off
+            button1.state = NSControl.StateValue.off
+            button2.state = NSControl.StateValue.off
+            button3.state = NSControl.StateValue.off
+            volume.doubleValue = (Double)(AppDelegate.Config.Volume.defaultVol)!
+            NSLog("Error: Client connection failure : '%@'", String(describing: error))
+       }
+    }
+    
+    func clientClose() {
+        sendcmd(command: AppDelegate.Config.PowerButton.commandOff)
+        client.close()
+        stoplocalradio()
+        powerButton.title = AppDelegate.Config.PowerButton.nameOff
+        powerButton.state = NSControl.StateValue.off
+        localButton.state = NSControl.StateValue.off
+        button1.state = NSControl.StateValue.off
+        button2.state = NSControl.StateValue.off
+        button3.state = NSControl.StateValue.off
+        volume.doubleValue = (Double)(AppDelegate.Config.Volume.defaultVol)!
+        NSLog("Debug: Client is disconnected")
+    }
+        
+    func readVolumeStatus() {
+        sendcmd(command: AppDelegate.Config.Volume.command+"QSTN")
+        var txt = client.read(1024, timeout: (Int)(AppDelegate.Config.OnkyoClient.timeout)!)
+        while (txt != nil) {
+                let str = String(bytes: txt!, encoding: String.Encoding.utf8)!
+                let NSstr = str as NSString
+                if (NSstr.contains(AppDelegate.Config.Volume.command)) { // Capture Volume Status
+                    let spi = NSstr.range(of: AppDelegate.Config.Volume.command)
+                    let volhex = NSstr.substring(with: NSRange(location: spi.location+5, length: 2))
+                    let voldec = Int(volhex, radix: 16)
+                    NSLog("Debug: Read Volume status - value '%@'", String(describing: voldec))
+                    volume.doubleValue = (Double)(voldec!)
+                    txt = nil
+                } else {
+                    txt = client.read(1024, timeout: 1)
+                }
+       }
     }
 
      func startlocalradio () {
@@ -98,64 +138,41 @@ extension OnkyoViewController {
 
     
     @IBAction func power(_ sender: NSButton) {
-        var log:String = ""
-        var error: Result?
-        stoplocalradio()
-        if (powerButton.title == AppDelegate.Config.PowerButton.nameOn) {
-            log.append("Powering Off...\n")
-            powerButton.title = AppDelegate.Config.PowerButton.nameOff
-            powerButton.state = NSControl.StateValue.off
-            localButton.state = NSControl.StateValue.off
-            button1.state = NSControl.StateValue.off
-            button2.state = NSControl.StateValue.off
-            button3.state = NSControl.StateValue.off
-            error = client.sendcmd(command: AppDelegate.Config.PowerButton.commandOff as NSString)
+        if (powerButton.state == NSControl.StateValue.off) {
+            NSLog("Debug: Powering Off ...")
+            clientClose()
         } else {
-            log.append("Powering On...\n")
-            powerButton.title = AppDelegate.Config.PowerButton.nameOn
-            powerButton.state = NSControl.StateValue.on
-            error = client.sendcmd(command: AppDelegate.Config.PowerButton.commandOn as NSString)
+            NSLog("Debug: Powering On ...")
+            clientConnect()
+            sendcmd(command: AppDelegate.Config.PowerButton.commandOn)
+            readVolumeStatus()
         }
-        if (error?.isFailure)! {
-            powerButton.state = NSControl.StateValue.off
-            localButton.state = NSControl.StateValue.off
-            button1.state = NSControl.StateValue.off
-            button2.state = NSControl.StateValue.off
-            button3.state = NSControl.StateValue.off
-            powerButton.title = AppDelegate.Config.PowerButton.nameOff
-        }
-        stoplocalradio()
-        log.append("Stopping icecast & darkice...\n")
-        log.append(String(describing: error))
-        NSLog("Debug: '%@'", log)
     }
 
     func sendcmd (command : String) -> Bool {
         for name in command.components(separatedBy: ",") {
             if (name=="") {
                 sleep(1)
-            } else if (name=="icecast") {
+            } else if (name=="cast") {
                 startlocalradio()
-                NSLog("Debug: '%@'", "Starting icecast & darkice")
-            } else if (name=="exit") {
-                NSLog("Debug: '%@'", "Stopping...")
+                NSLog("Debug: Starting icecast & darkice")
+            } else if (name=="nocast") {
                 stoplocalradio()
-                var error: Result?
-                error = client.sendcmd(command: AppDelegate.Config.PowerButton.commandOff as NSString)
-                NSLog("Debug: '%@'", "Sending command : "+AppDelegate.Config.PowerButton.commandOff)
-                if (error?.isFailure)! {
-                    NSLog("Error: '%@'", "String(describing: error)")
-                    return false
-                }
+                NSLog("Debug: Stopping icecast & darkice")
+            } else if (name=="exit") {
+                NSLog("Debug: Stopping App '%@'", "...")
+                clientClose()
                 NSApp.terminate(self)
             } else {
                 powerButton.title = AppDelegate.Config.PowerButton.nameOn
                 powerButton.state = NSControl.StateValue.on
                 var error: Result?
                 error = client.sendcmd(command: name as NSString)
-                NSLog("Debug: '%@'", "Sending command : "+name)
+                NSLog("Debug: Sending command '%@'", name)
                 if (error?.isFailure)! {
-                    NSLog("Error: '%@'", "String(describing: error)")
+                    NSLog("Error: '%@'", String(describing: error))
+                    powerButton.title = AppDelegate.Config.PowerButton.nameOff
+                    powerButton.state = NSControl.StateValue.off
                     return false
                 }
             }
@@ -164,8 +181,11 @@ extension OnkyoViewController {
     }
     
     @IBAction func local(_ sender: NSButton) {
-        NSLog("Debug: '%@'", "Connecting to "+AppDelegate.Config.LocalButton.name+"...")
-        stoplocalradio()
+        if (powerButton.state == NSControl.StateValue.off) {
+            localButton.state = NSControl.StateValue.off
+            return
+        }
+        NSLog("Debug: Connecting to "+AppDelegate.Config.LocalButton.name+"...")
         button1.state = NSControl.StateValue.off
         button2.state = NSControl.StateValue.off
         button3.state = NSControl.StateValue.off
@@ -176,18 +196,20 @@ extension OnkyoViewController {
 
     @objc func menu1(_ sender: AnyObject) {
         let val: Int = sender.representedObject as! Int
-        NSLog("Debug: '%@'", "Connecting to "+AppDelegate.Config.Button1.name+" ("+AppDelegate.Config.Button1.menulist[val-1].name+")...")
-        if (AppDelegate.Config.Button1.menulist[val-1].command.contains("SL")) { stoplocalradio() }
+        NSLog("Debug: Connecting to "+AppDelegate.Config.Button1.name+" ("+AppDelegate.Config.Button1.menulist[val-1].name+")...")
         sendcmd(command: AppDelegate.Config.Button1.menulist[val-1].command)
     }
 
     @IBAction func button1(_ sender: NSButton) {
+        if (powerButton.state == NSControl.StateValue.off) {
+            button1.state = NSControl.StateValue.off
+            return
+        }
         localButton.state = NSControl.StateValue.off
         button2.state = NSControl.StateValue.off
         button3.state = NSControl.StateValue.off
         if (AppDelegate.Config.Button1.menuItems=="0") {
             NSLog("Debug: '%@'", "Connecting to "+AppDelegate.Config.Button1.name+"...")
-            if (AppDelegate.Config.Button1.command.contains("SL")) { stoplocalradio() }
             if (sendcmd(command: AppDelegate.Config.Button1.command)==false) {
                 button1.state = NSControl.StateValue.off
             }
@@ -207,18 +229,20 @@ extension OnkyoViewController {
 
     @objc func menu2(_ sender: AnyObject) {
         let val: Int = sender.representedObject as! Int
-        NSLog("Debug: '%@'", "Connecting to "+AppDelegate.Config.Button1.name+" ("+AppDelegate.Config.Button2.menulist[val-1].name+")...")
-        if (AppDelegate.Config.Button2.menulist[val-1].command.contains("SL")) { stoplocalradio() }
+        NSLog("Debug: Connecting to "+AppDelegate.Config.Button1.name+" ("+AppDelegate.Config.Button2.menulist[val-1].name+")...")
         sendcmd(command: AppDelegate.Config.Button2.menulist[val-1].command)
     }
     
     @IBAction func button2(_ sender: NSButton) {
+        if (powerButton.state == NSControl.StateValue.off) {
+            button2.state = NSControl.StateValue.off
+            return
+        }
         localButton.state = NSControl.StateValue.off
         button1.state = NSControl.StateValue.off
         button3.state = NSControl.StateValue.off
         if (AppDelegate.Config.Button2.menuItems=="0") {
-            NSLog("Debug: '%@'", "Connecting to "+AppDelegate.Config.Button2.name+"...")
-            if (AppDelegate.Config.Button2.command.contains("SL")) { stoplocalradio() }
+            NSLog("Debug: Connecting to "+AppDelegate.Config.Button2.name+"...")
             if (sendcmd(command: AppDelegate.Config.Button2.command)==false) {
                 button2.state = NSControl.StateValue.off
             }
@@ -238,18 +262,20 @@ extension OnkyoViewController {
     
     @objc func menu3(_ sender: AnyObject) {
         let val: Int = sender.representedObject as! Int
-        NSLog("Debug: '%@'", "Connecting to "+AppDelegate.Config.Button3.name+" ("+AppDelegate.Config.Button3.menulist[val-1].name+")...")
-        if (AppDelegate.Config.Button3.menulist[val-1].command.contains("SL")) { stoplocalradio() }
+        NSLog("Debug: Connecting to "+AppDelegate.Config.Button3.name+" ("+AppDelegate.Config.Button3.menulist[val-1].name+")...")
         sendcmd(command: AppDelegate.Config.Button3.menulist[val-1].command)
     }
     
    @IBAction func button3(_ sender: NSButton) {
+        if (powerButton.state == NSControl.StateValue.off) {
+            button3.state = NSControl.StateValue.off
+            return
+        }
         localButton.state = NSControl.StateValue.off
         button1.state = NSControl.StateValue.off
         button2.state = NSControl.StateValue.off
         if (AppDelegate.Config.Button3.menuItems=="0") {
-            NSLog("Debug: '%@'", "Connecting to "+AppDelegate.Config.Button3.name+"...")
-            if (AppDelegate.Config.Button3.command.contains("SL")) { stoplocalradio() }
+            NSLog("Debug: Connecting to "+AppDelegate.Config.Button3.name+"...")
             if (sendcmd(command: AppDelegate.Config.Button3.command)==false) {
                 button3.state = NSControl.StateValue.off
             }
@@ -267,23 +293,13 @@ extension OnkyoViewController {
         }
     }
     
-    func setVolume(_ sender: NSSlider, val: Int)
-    {
-        let st = NSString(format:AppDelegate.Config.Volume.command as NSString, val)
-        var error: Result?
-        error = client.sendcmd(command: st)
-        if (error?.isFailure)! {
-            sender.integerValue = 0
-        }
-
-    }
-
     @IBAction func volume(_ sender: NSSlider) {
-        var log:String = "Changing volume to "
         let val = sender.integerValue
-        log.append(String(describing: val))
-        setVolume(sender, val: val)
-        NSLog("Debug: '%@'", log)
+        let cmd = AppDelegate.Config.Volume.command + "%002X"
+        let st = NSString(format:cmd as NSString, val)
+        if (sendcmd(command: st as String)==false) {
+            sender.integerValue = (Int)(AppDelegate.Config.Volume.defaultVol)!
+        }
     }
     
 }

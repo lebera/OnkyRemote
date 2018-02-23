@@ -80,7 +80,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             Config.Button1.menuItems = configfile.sections["Button1"]!["menu"]!
             if ((Int)(Config.Button1.menuItems) as! Int != 0) {
                 for i in 1 ... (Int)(Config.Button1.menuItems)! {
-                        Config.Button1.menulist.append(MenuList(name : configfile.sections["Button1"]![NSString(format:"menu_name_%02d",i) as String]!, command : configfile.sections["Button1"]![NSString(format:"menu_command_%02d",i) as String]!))
+                        Config.Button1.menulist.append(MenuList(name : configfile.sections["Button1"]![NSString(format:"menu_name_%002d",i) as String]!, command : configfile.sections["Button1"]![NSString(format:"menu_command_%002d",i) as String]!))
                 }
             }
             Config.Button2.name = configfile.sections["Button2"]!["name"]!
@@ -88,7 +88,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             Config.Button2.menuItems = configfile.sections["Button2"]!["menu"]!
             if ((Int)(Config.Button2.menuItems) as! Int != 0) {
                 for i in 1 ... (Int)(Config.Button2.menuItems)! {
-                    Config.Button2.menulist.append(MenuList(name : configfile.sections["Button2"]![NSString(format:"menu_name_%02d",i) as String]!, command : configfile.sections["Button2"]![NSString(format:"menu_command_%02d",i) as String]!))
+                    Config.Button2.menulist.append(MenuList(name : configfile.sections["Button2"]![NSString(format:"menu_name_%002d",i) as String]!, command : configfile.sections["Button2"]![NSString(format:"menu_command_%002d",i) as String]!))
                 }
             }
             Config.Button3.name = configfile.sections["Button3"]!["name"]!
@@ -96,7 +96,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             Config.Button3.menuItems = configfile.sections["Button3"]!["menu"]!
            if ((Int)(Config.Button3.menuItems) as! Int != 0) {
                 for i in 1 ... (Int)(Config.Button3.menuItems)! {
-                    Config.Button3.menulist.append(MenuList(name : configfile.sections["Button3"]![NSString(format:"menu_name_%02d",i) as String]!, command : configfile.sections["Button3"]![NSString(format:"menu_command_%02d",i) as String]!))
+                    Config.Button3.menulist.append(MenuList(name : configfile.sections["Button3"]![NSString(format:"menu_name_%002d",i) as String]!, command : configfile.sections["Button3"]![NSString(format:"menu_command_%002d",i) as String]!))
                 }
             }
         }catch ( _) {

@@ -125,10 +125,6 @@ int ytcpsocket_pull(int socketfd, char *data, int len, int timeout_sec) {
         if (readlen > 0) {
             datalen += readlen;
         }
-        // Ack ALB : End of line
-        if ((datalen >0) && (data[datalen-1] == '\n')) {
-            readlen = 0;
-        }
     } while (readlen > 0);
     
     
