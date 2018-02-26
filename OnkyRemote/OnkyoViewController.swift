@@ -52,7 +52,9 @@ extension OnkyoViewController {
         case .success:
             powerButton.title = AppDelegate.Config.PowerButton.nameOn
             powerButton.state = NSControl.StateValue.on
-            NSLog("Debug: Client is connected")
+            NSLog("Debug: Client is connected to %@:%@",AppDelegate.Config.OnkyoClient.address,AppDelegate.Config.OnkyoClient.port)
+            sendcmd(command: AppDelegate.Config.PowerButton.commandOn)
+            readVolumeStatus()
         case .failure(let error):
             powerButton.title = AppDelegate.Config.PowerButton.nameOff
             powerButton.state = NSControl.StateValue.off
@@ -61,7 +63,7 @@ extension OnkyoViewController {
             button2.state = NSControl.StateValue.off
             button3.state = NSControl.StateValue.off
             volume.doubleValue = (Double)(AppDelegate.Config.Volume.defaultVol)!
-            NSLog("Error: Client connection failure : '%@'", String(describing: error))
+            NSLog("Error: Client connection failure to %@:%@ : '%@'", AppDelegate.Config.OnkyoClient.address,AppDelegate.Config.OnkyoClient.port,String(describing: error))
        }
     }
     
@@ -89,7 +91,7 @@ extension OnkyoViewController {
                     let spi = NSstr.range(of: AppDelegate.Config.Volume.command)
                     let volhex = NSstr.substring(with: NSRange(location: spi.location+5, length: 2))
                     let voldec = Int(volhex, radix: 16)
-                    NSLog("Debug: Read Volume status - value '%@'", String(describing: voldec))
+                    NSLog("Debug: Reading Volume status <- value '%@'", String(describing: voldec))
                     volume.doubleValue = (Double)(voldec!)
                     txt = nil
                 } else {
@@ -112,7 +114,7 @@ extension OnkyoViewController {
         
         outHandle.readabilityHandler = { pipe in
             if let line = String(data: pipe.availableData, encoding: String.Encoding.utf8) {
-                NSLog("Debug: '%@'", line)
+                if (line != "") { NSLog("Debug: castSW/start.sh script '%@'", line) }
             }
         }
     }
@@ -131,7 +133,7 @@ extension OnkyoViewController {
         
         outHandle.readabilityHandler = { pipe in
             if let line = String(data: pipe.availableData, encoding: String.Encoding.utf8) {
-                NSLog("Debug: '%@'", line)
+                if (line != "") { NSLog("Debug: castSW/stop.sh script '%@'", line) }
             }
         }
     }
@@ -144,8 +146,6 @@ extension OnkyoViewController {
         } else {
             NSLog("Debug: Powering On ...")
             clientConnect()
-            sendcmd(command: AppDelegate.Config.PowerButton.commandOn)
-            readVolumeStatus()
         }
     }
 
@@ -155,10 +155,10 @@ extension OnkyoViewController {
                 sleep(1)
             } else if (name=="cast") {
                 startlocalradio()
-                NSLog("Debug: Starting icecast & darkice")
+                NSLog("Debug: Starting icecast & darkice ...")
             } else if (name=="nocast") {
                 stoplocalradio()
-                NSLog("Debug: Stopping icecast & darkice")
+                NSLog("Debug: Stopping icecast & darkice ...")
             } else if (name=="exit") {
                 NSLog("Debug: Stopping App '%@'", "...")
                 clientClose()
@@ -168,9 +168,9 @@ extension OnkyoViewController {
                 powerButton.state = NSControl.StateValue.on
                 var error: Result?
                 error = client.sendcmd(command: name as NSString)
-                NSLog("Debug: Sending command '%@'", name)
+                NSLog("Debug: Sending command -> '%@'", name)
                 if (error?.isFailure)! {
-                    NSLog("Error: '%@'", String(describing: error))
+                    NSLog("Error: Sending command -> '%@' : %@", name,String(describing: error))
                     powerButton.title = AppDelegate.Config.PowerButton.nameOff
                     powerButton.state = NSControl.StateValue.off
                     return false
@@ -185,7 +185,7 @@ extension OnkyoViewController {
             localButton.state = NSControl.StateValue.off
             return
         }
-        NSLog("Debug: Connecting to "+AppDelegate.Config.LocalButton.name+"...")
+        NSLog("Debug: Connecting to "+AppDelegate.Config.LocalButton.name+" ...")
         button1.state = NSControl.StateValue.off
         button2.state = NSControl.StateValue.off
         button3.state = NSControl.StateValue.off
@@ -196,7 +196,7 @@ extension OnkyoViewController {
 
     @objc func menu1(_ sender: AnyObject) {
         let val: Int = sender.representedObject as! Int
-        NSLog("Debug: Connecting to "+AppDelegate.Config.Button1.name+" ("+AppDelegate.Config.Button1.menulist[val-1].name+")...")
+        NSLog("Debug: Connecting to "+AppDelegate.Config.Button1.name+" ("+AppDelegate.Config.Button1.menulist[val-1].name+") ...")
         sendcmd(command: AppDelegate.Config.Button1.menulist[val-1].command)
     }
 
@@ -209,7 +209,7 @@ extension OnkyoViewController {
         button2.state = NSControl.StateValue.off
         button3.state = NSControl.StateValue.off
         if (AppDelegate.Config.Button1.menuItems=="0") {
-            NSLog("Debug: '%@'", "Connecting to "+AppDelegate.Config.Button1.name+"...")
+            NSLog("Debug: '%@'", "Connecting to "+AppDelegate.Config.Button1.name+" ...")
             if (sendcmd(command: AppDelegate.Config.Button1.command)==false) {
                 button1.state = NSControl.StateValue.off
             }
@@ -229,7 +229,7 @@ extension OnkyoViewController {
 
     @objc func menu2(_ sender: AnyObject) {
         let val: Int = sender.representedObject as! Int
-        NSLog("Debug: Connecting to "+AppDelegate.Config.Button1.name+" ("+AppDelegate.Config.Button2.menulist[val-1].name+")...")
+        NSLog("Debug: Connecting to "+AppDelegate.Config.Button1.name+" ("+AppDelegate.Config.Button2.menulist[val-1].name+") ...")
         sendcmd(command: AppDelegate.Config.Button2.menulist[val-1].command)
     }
     
@@ -242,7 +242,7 @@ extension OnkyoViewController {
         button1.state = NSControl.StateValue.off
         button3.state = NSControl.StateValue.off
         if (AppDelegate.Config.Button2.menuItems=="0") {
-            NSLog("Debug: Connecting to "+AppDelegate.Config.Button2.name+"...")
+            NSLog("Debug: Connecting to "+AppDelegate.Config.Button2.name+" ...")
             if (sendcmd(command: AppDelegate.Config.Button2.command)==false) {
                 button2.state = NSControl.StateValue.off
             }
@@ -262,7 +262,7 @@ extension OnkyoViewController {
     
     @objc func menu3(_ sender: AnyObject) {
         let val: Int = sender.representedObject as! Int
-        NSLog("Debug: Connecting to "+AppDelegate.Config.Button3.name+" ("+AppDelegate.Config.Button3.menulist[val-1].name+")...")
+        NSLog("Debug: Connecting to "+AppDelegate.Config.Button3.name+" ("+AppDelegate.Config.Button3.menulist[val-1].name+") ...")
         sendcmd(command: AppDelegate.Config.Button3.menulist[val-1].command)
     }
     
@@ -275,7 +275,7 @@ extension OnkyoViewController {
         button1.state = NSControl.StateValue.off
         button2.state = NSControl.StateValue.off
         if (AppDelegate.Config.Button3.menuItems=="0") {
-            NSLog("Debug: Connecting to "+AppDelegate.Config.Button3.name+"...")
+            NSLog("Debug: Connecting to "+AppDelegate.Config.Button3.name+" ...")
             if (sendcmd(command: AppDelegate.Config.Button3.command)==false) {
                 button3.state = NSControl.StateValue.off
             }
@@ -294,6 +294,10 @@ extension OnkyoViewController {
     }
     
     @IBAction func volume(_ sender: NSSlider) {
+        if (powerButton.state == NSControl.StateValue.off) {
+            sender.integerValue = (Int)(AppDelegate.Config.Volume.defaultVol)!
+            return
+        }
         let val = sender.integerValue
         let cmd = AppDelegate.Config.Volume.command + "%002X"
         let st = NSString(format:cmd as NSString, val)
