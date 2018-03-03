@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C17E93E204928B500F71AAE /* yudpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 9C17E93D204928B500F71AAE /* yudpsocket.c */; };
+		9C17E940204928BD00F71AAE /* UDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C17E93F204928BD00F71AAE /* UDPClient.swift */; };
+		9C17E94220492BE100F71AAE /* OnkyoUDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C17E94120492BE100F71AAE /* OnkyoUDPClient.swift */; };
 		9C1C38E81FFBF77800D245AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1C38E71FFBF77800D245AE /* AppDelegate.swift */; };
 		9C1C38EA1FFBF77800D245AE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1C38E91FFBF77800D245AE /* ViewController.swift */; };
 		9C1C38EC1FFBF77800D245AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C1C38EB1FFBF77800D245AE /* Assets.xcassets */; };
@@ -23,6 +26,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9C17E93D204928B500F71AAE /* yudpsocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yudpsocket.c; sourceTree = "<group>"; };
+		9C17E93F204928BD00F71AAE /* UDPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDPClient.swift; sourceTree = "<group>"; };
+		9C17E94120492BE100F71AAE /* OnkyoUDPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnkyoUDPClient.swift; sourceTree = "<group>"; };
 		9C1C38E41FFBF77800D245AE /* OnkyRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnkyRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C1C38E71FFBF77800D245AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C1C38E91FFBF77800D245AE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -99,11 +105,14 @@
 		9C99B8601FFCC07F0074758A /* SwiftSocket */ = {
 			isa = PBXGroup;
 			children = (
+				9C17E93F204928BD00F71AAE /* UDPClient.swift */,
+				9C17E93D204928B500F71AAE /* yudpsocket.c */,
 				9C99B8691FFCC0FE0074758A /* OnkyoClient.swift */,
 				9C99B8671FFCC0F80074758A /* TCPClient.swift */,
 				9C99B8651FFCC0F20074758A /* Result.swift */,
 				9C99B8631FFCC0EA0074758A /* Socket.swift */,
 				9C99B8611FFCC0DE0074758A /* ytcpsocket.c */,
+				9C17E94120492BE100F71AAE /* OnkyoUDPClient.swift */,
 			);
 			path = SwiftSocket;
 			sourceTree = "<group>";
@@ -190,9 +199,12 @@
 				9C99B8681FFCC0F80074758A /* TCPClient.swift in Sources */,
 				9C99B8661FFCC0F20074758A /* Result.swift in Sources */,
 				9C99B85F1FFBFB590074758A /* OnkyoViewController.swift in Sources */,
+				9C17E94220492BE100F71AAE /* OnkyoUDPClient.swift in Sources */,
 				9C99B86A1FFCC0FE0074758A /* OnkyoClient.swift in Sources */,
 				9C5D2EF92022D88E004BB477 /* INIParser.swift in Sources */,
 				9C1C38EA1FFBF77800D245AE /* ViewController.swift in Sources */,
+				9C17E940204928BD00F71AAE /* UDPClient.swift in Sources */,
+				9C17E93E204928B500F71AAE /* yudpsocket.c in Sources */,
 				9C99B8641FFCC0EA0074758A /* Socket.swift in Sources */,
 				9C99B8621FFCC0DF0074758A /* ytcpsocket.c in Sources */,
 				9C1C38E81FFBF77800D245AE /* AppDelegate.swift in Sources */,

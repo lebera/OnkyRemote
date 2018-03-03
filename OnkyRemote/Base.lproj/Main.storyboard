@@ -686,11 +686,11 @@
             <objects>
                 <viewController storyboardIdentifier="OnkyoViewController" id="XfG-lQ-9wD" customClass="OnkyoViewController" customModule="OnkyRemote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="314" height="157"/>
+                        <rect key="frame" x="0.0" y="0.0" width="314" height="138"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RNX-if-0Kp" userLabel="Button1">
-                                <rect key="frame" x="9" y="74" width="102" height="32"/>
+                                <rect key="frame" x="9" y="55" width="102" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Coh-UO-PHT">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -701,7 +701,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dbq-lJ-OTl" userLabel="Button 2">
-                                <rect key="frame" x="106" y="74" width="102" height="32"/>
+                                <rect key="frame" x="106" y="55" width="102" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Aqu-LS-W8j">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -712,7 +712,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G5q-Pb-IRn" userLabel="Button 3">
-                                <rect key="frame" x="203" y="74" width="102" height="32"/>
+                                <rect key="frame" x="203" y="55" width="102" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="of1-MO-Hxe">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -722,16 +722,8 @@
                                     <action selector="button3:" target="XfG-lQ-9wD" id="CRN-vL-ecl"/>
                                 </connections>
                             </button>
-                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1K6-9j-GkO">
-                                <rect key="frame" x="13" y="18" width="288" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" state="on" alignment="left" maxValue="40" tickMarkPosition="above" numberOfTickMarks="10" sliderType="linear" id="UsG-b8-qpx"/>
-                                <connections>
-                                    <action selector="volume:" target="XfG-lQ-9wD" id="vMk-B4-fsq"/>
-                                </connections>
-                            </slider>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5JU-9g-Y5h">
-                                <rect key="frame" x="9" y="118" width="102" height="32"/>
+                                <rect key="frame" x="9" y="99" width="102" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="drc-01-UfB">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -742,7 +734,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RXc-ZT-wyg" userLabel="Local Button">
-                                <rect key="frame" x="203" y="118" width="102" height="32"/>
+                                <rect key="frame" x="203" y="99" width="102" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Wj7-Af-7sh">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -752,18 +744,27 @@
                                     <action selector="local:" target="XfG-lQ-9wD" id="c2h-us-ZhN"/>
                                 </connections>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Te1-VL-iNe">
-                                <rect key="frame" x="133" y="50" width="49" height="17"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UTJ-vJ-7AJ" userLabel="Name">
+                                <rect key="frame" x="106" y="109" width="102" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Volume" id="9kq-ki-wv2">
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" usesSingleLineMode="YES" id="MIG-Mt-Vqf">
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1K6-9j-GkO">
+                                <rect key="frame" x="13" y="18" width="288" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" state="on" alignment="left" maxValue="40" tickMarkPosition="above" numberOfTickMarks="10" sliderType="linear" id="UsG-b8-qpx"/>
+                                <connections>
+                                    <action selector="volume:" target="XfG-lQ-9wD" id="vMk-B4-fsq"/>
+                                </connections>
+                            </slider>
                         </subviews>
                     </view>
                     <connections>
+                        <outlet property="Name" destination="MIG-Mt-Vqf" id="dZP-lK-Nvk"/>
                         <outlet property="button1" destination="RNX-if-0Kp" id="wtn-HB-yYj"/>
                         <outlet property="button2" destination="Dbq-lJ-OTl" id="mND-4s-fmy"/>
                         <outlet property="button3" destination="G5q-Pb-IRn" id="fKZ-nF-8WV"/>
@@ -774,7 +775,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-8" y="598.5"/>
+            <point key="canvasLocation" x="-8" y="589"/>
         </scene>
     </scenes>
 </document>

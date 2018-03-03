@@ -19,6 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     struct Config {
         struct OnkyoClient {
+            static var name = ""
             static var address = ""
             static var port = ""
             static var timeout = ""
@@ -64,9 +65,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let configres = Bundle.main.url(forResource: "OnkyoConfig", withExtension:"ini")
             let configfile = try INIParser((configres?.path)!)
             
-            if (configfile.sections["OnkyoClient"]!["address"] == nil) {
-                NSLog("Error: OnkyoConfig.ini file incorrect : 'no address defined in [OnkyoClient] section'")
-                Config.OnkyoClient.address = ""
+            if (configfile.sections["OnkyoClient"]!["name"] == nil) {
+                NSLog("Warning: OnkyoConfig.ini file : 'no name defined in [OnkyoClient] section - auto detection activated'")
+                Config.OnkyoClient.name = ""
+            } else {
+                Config.OnkyoClient.name = configfile.sections["OnkyoClient"]!["name"]!
+            }
+           if (configfile.sections["OnkyoClient"]!["address"] == nil) {
+                NSLog("Warning: OnkyoConfig.ini file : 'no address defined in [OnkyoClient] section - auto detection activated'")
+                Config.OnkyoClient.address = "0.0.0.0"
             } else {
                 Config.OnkyoClient.address = configfile.sections["OnkyoClient"]!["address"]!
             }
@@ -223,6 +230,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         } catch ( _) {
             fatalError("OnkyoConfig.ini file missing or incorrect - Check it")
+        }
+        
+        if ((Config.OnkyoClient.address=="0.0.0.0")||(Config.OnkyoClient.name=="")) {
+            NSLog("Warning: Forcing Onkyo receiver auto detection")
+            let udp:OnkyoUDPClient = OnkyoUDPClient(address: "255.255.255.255", port: (Int32)(AppDelegate.Config.OnkyoClient.port)!)
+            let ret = udp.autodetect(name: Config.OnkyoClient.name, ip:Config.OnkyoClient.address, tmout: Int(Config.OnkyoClient.timeout)!)
+            Config.OnkyoClient.name = ret[0]
+            Config.OnkyoClient.address = ret[1]
+            udp.close()
         }
 
          if let button = statusItem.button {

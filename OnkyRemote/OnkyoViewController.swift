@@ -15,12 +15,14 @@ class OnkyoViewController: NSViewController {
     @IBOutlet var button2: NSButton!
     @IBOutlet var button3: NSButton!
     @IBOutlet var volume: NSSlider!
+    @IBOutlet var Name: NSTextFieldCell!
     let statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.squareLength)
     let client:OnkyoClient = OnkyoClient(address: AppDelegate.Config.OnkyoClient.address, port: (Int32)(AppDelegate.Config.OnkyoClient.port)!)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
+        Name.stringValue = AppDelegate.Config.OnkyoClient.name
         powerButton.title = AppDelegate.Config.PowerButton.nameOff
         localButton.title = AppDelegate.Config.LocalButton.name
         button1.title = AppDelegate.Config.Button1.name
@@ -55,7 +57,9 @@ extension OnkyoViewController {
             NSLog("Debug: Client is connected to %@:%@",AppDelegate.Config.OnkyoClient.address,AppDelegate.Config.OnkyoClient.port)
             sendcmd(command: AppDelegate.Config.PowerButton.commandOn)
             readVolumeStatus()
+            readButtonStatus()
         case .failure(let error):
+            Name.stringValue = "ERROR"
             powerButton.title = AppDelegate.Config.PowerButton.nameOff
             powerButton.state = NSControl.StateValue.off
             localButton.state = NSControl.StateValue.off
@@ -85,7 +89,7 @@ extension OnkyoViewController {
         sendcmd(command: AppDelegate.Config.Volume.command+"QSTN")
         var txt = client.read(1024, timeout: (Int)(AppDelegate.Config.OnkyoClient.timeout)!)
         while (txt != nil) {
-                let str = String(bytes: txt!, encoding: String.Encoding.utf8)!
+                let str = String(bytes: txt!, encoding: String.Encoding.ascii)!
                 let NSstr = str as NSString
                 if (NSstr.contains(AppDelegate.Config.Volume.command)) { // Capture Volume Status
                     let spi = NSstr.range(of: AppDelegate.Config.Volume.command)
@@ -100,7 +104,31 @@ extension OnkyoViewController {
        }
     }
 
-     func startlocalradio () {
+    func readButtonStatus() {
+        sendcmd(command: "!1SLIQSTN")
+        var txt = client.read(1024, timeout: (Int)(AppDelegate.Config.OnkyoClient.timeout)!)
+        while (txt != nil) {
+            let str = String(bytes: txt!, encoding: String.Encoding.ascii)!
+            let NSstr = str as NSString
+            if (NSstr.contains("!1SLI")) { // Capture Volume Status
+                let spi = NSstr.range(of: "!1SLI")
+                let val = NSstr.substring(with: NSRange(location: spi.location, length: 7))
+                NSLog("Debug: Reading command status <- value '%@'", val)
+                if (AppDelegate.Config.Button1.command.contains(val)) {
+                    button1.state = NSControl.StateValue.on
+                } else if (AppDelegate.Config.Button2.command.contains(val)) {
+                    button2.state = NSControl.StateValue.on
+                } else if (AppDelegate.Config.Button3.command.contains(val)) {
+                    button3.state = NSControl.StateValue.on
+                }
+                txt = nil
+            } else {
+                txt = client.read(1024, timeout: 1)
+            }
+        }
+    }
+
+    func startlocalradio () {
         let startres = Bundle.main.url(forResource: "start", withExtension: "sh", subdirectory: "castSW")
         let task = Process()
         task.launchPath = startres?.path
@@ -192,6 +220,7 @@ extension OnkyoViewController {
         if (sendcmd(command: AppDelegate.Config.LocalButton.command)==false) {
             localButton.state = NSControl.StateValue.off
         }
+        localButton.state = NSControl.StateValue.on
     }
 
     @objc func menu1(_ sender: AnyObject) {
@@ -213,6 +242,7 @@ extension OnkyoViewController {
             if (sendcmd(command: AppDelegate.Config.Button1.command)==false) {
                 button1.state = NSControl.StateValue.off
             }
+            button1.state = NSControl.StateValue.on
         } else {
             let menu = NSMenu()
             var item = NSMenuItem()
@@ -246,6 +276,7 @@ extension OnkyoViewController {
             if (sendcmd(command: AppDelegate.Config.Button2.command)==false) {
                 button2.state = NSControl.StateValue.off
             }
+            button2.state = NSControl.StateValue.on
         } else {
             let menu = NSMenu()
             var item = NSMenuItem()
@@ -279,7 +310,8 @@ extension OnkyoViewController {
             if (sendcmd(command: AppDelegate.Config.Button3.command)==false) {
                 button3.state = NSControl.StateValue.off
             }
-        } else {
+            button3.state = NSControl.StateValue.on
+       } else {
             let menu = NSMenu()
             var item = NSMenuItem()
             for i in 1 ... (Int)(AppDelegate.Config.Button3.menuItems)! {
