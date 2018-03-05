@@ -12,15 +12,19 @@ Then you need to redirect your favorite radio to your imac ip address (the one r
 Note that uou can use any other audio driver, but then you need to change the configuration and script files contained in this App (in Content/Resources/castSW/ directory).
 
 To analyse in more details the corrent behaviour of this app, you can open the "console.app" application, filtering 'onky' messages, and/or also open local web page to monitor icecast and darkcast deamons behaviour, at 127.0.0.1:8000.
+
 ![shot-console](https://user-images.githubusercontent.com/36587077/36997242-4a96ca36-20b9-11e8-997b-aab39df68786.jpg)
 ![shot-cast2](https://user-images.githubusercontent.com/36587077/36997275-5de221ee-20b9-11e8-8dd1-4c489cf97dcb.jpg)
 
 You can also edit content of the "OnkyoRemote.ini" file contained in this App container (in Content/Resources/ directory), to create your own commands for any specific Onkyo equipment.
+
 ![shot-showpackagecontents](https://user-images.githubusercontent.com/36587077/36996473-3b5cc4c8-20b7-11e8-839b-a06940ed8a94.jpg)
 
 ![shot-onkyoconfigini](https://user-images.githubusercontent.com/36587077/36996618-85776c3e-20b7-11e8-924f-d37d71eb564f.jpg)
 
-For instance a modified "OnkyoRemote.ini" could allow you to change this application behaviour and associated commands
+For instance a modified "OnkyoRemote.ini" could allow you to change this application behaviour and associated commands.
+
 ![shot-specific](https://user-images.githubusercontent.com/36587077/36997327-989c49b8-20b9-11e8-8be0-7e301ad55614.jpg)
+
 
 A precompiled version is available in the "release" @ https://github.com/lebera/OnkyRemote/releases
