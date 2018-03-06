@@ -17,9 +17,9 @@ Then you need to redirect your first favorite radio to your imac ip address (the
 
 Note that you can use any other audio driver, but then you need to change the configuration and script files contained in this App (in Content/Resources/castSW/ directory).
 
-## To analyse in more details the corrent behaviour of this app,
+## Handy tools to control this app
 
-you can open the "console.app" application, filtering 'onky' messages
+you can open the "console.app" application to analyse in more details the corrent behaviour of this app, filtering 'onky' messages
 
 ![shot-console](https://user-images.githubusercontent.com/36587077/36997242-4a96ca36-20b9-11e8-997b-aab39df68786.jpg)
 
@@ -34,7 +34,7 @@ you can also open local web page to monitor icecast and darkcast deamons behavio
 ![shot-cast2](https://user-images.githubusercontent.com/36587077/36997275-5de221ee-20b9-11e8-8dd1-4c489cf97dcb.jpg)
 
 
-## To customize this app
+## Customization of your app
 
 You can also edit content of the "OnkyoRemote.ini" file contained in this App container (in Content/Resources/ directory), to create your own commands for any specific Onkyo equipment.
 
