@@ -1,6 +1,9 @@
 # Onkyo Remote App for MacOSX menu bar.
 
+Precompiled versions are available in the "release" section @ https://github.com/lebera/OnkyRemote/releases
+
 ![shot-onky](https://user-images.githubusercontent.com/36587077/36996223-8409cb9a-20b6-11e8-846d-71fe6d41314a.jpg)
+
 
 ## This App is able to redirect MacOSX sounds to your Onkyo receiver using "icecast" & "darkice" deamons.
 
@@ -16,11 +19,20 @@ Note that you can use any other audio driver, but then you need to change the co
 
 ## To analyse in more details the corrent behaviour of this app,
 
-you can open the "console.app" application, filtering 'onky' messages, and/or also open local web page to monitor icecast and darkcast deamons behaviour, at 127.0.0.1:8000.
+you can open the "console.app" application, filtering 'onky' messages
 
 ![shot-console](https://user-images.githubusercontent.com/36587077/36997242-4a96ca36-20b9-11e8-997b-aab39df68786.jpg)
 
+
+To quit application open the "activity monitor.app" application, filtering 'onky' and kill it
+
+![shot-quit](https://user-images.githubusercontent.com/36587077/37016075-c1b913de-210a-11e8-9ac7-b73c77ef22ae.jpg)
+
+
+you can also open local web page to monitor icecast and darkcast deamons behaviour (when there are running), at 127.0.0.1:8000 (using standard admin icecast password).
+
 ![shot-cast2](https://user-images.githubusercontent.com/36587077/36997275-5de221ee-20b9-11e8-8dd1-4c489cf97dcb.jpg)
+
 
 ## To customize this app
 
@@ -34,5 +46,3 @@ For instance a modified "OnkyoRemote.ini" could allow you to change this applica
 
 ![shot-specific](https://user-images.githubusercontent.com/36587077/36997327-989c49b8-20b9-11e8-8be0-7e301ad55614.jpg)
 
-
-# A precompiled version is available in the "release" @ https://github.com/lebera/OnkyRemote/releases
