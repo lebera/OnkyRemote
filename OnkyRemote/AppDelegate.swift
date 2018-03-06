@@ -23,6 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             static var address = ""
             static var port = ""
             static var timeout = ""
+            static var command = ""
         }
         struct PowerButton {
             static var nameOn = ""
@@ -78,38 +79,44 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 Config.OnkyoClient.address = configfile.sections["OnkyoClient"]!["address"]!
             }
             if (configfile.sections["OnkyoClient"]!["port"] == nil) {
-                NSLog("Error: OnkyoConfig.ini file incorrect : 'no port defined in [OnkyoClient] section'")
-                Config.OnkyoClient.port = ""
+                NSLog("Warning: OnkyoConfig.ini file incorrect : 'no port defined in [OnkyoClient] section - setting port to default 60128'")
+                Config.OnkyoClient.port = "60128"
             } else {
                 Config.OnkyoClient.port = configfile.sections["OnkyoClient"]!["port"]!
             }
             if (configfile.sections["OnkyoClient"]!["timeout"] == nil) {
-                NSLog("Error: OnkyoConfig.ini file incorrect : 'no timeout defined in [OnkyoClient] section'")
+                NSLog("Warning: OnkyoConfig.ini file incorrect : 'no timeout defined in [OnkyoClient] section - setting timeout to default 5'")
                 Config.OnkyoClient.timeout = "5"
             } else {
                 Config.OnkyoClient.timeout = configfile.sections["OnkyoClient"]!["timeout"]!
             }
+            if (configfile.sections["OnkyoClient"]!["command"] == nil) {
+                NSLog("Warning: OnkyoConfig.ini file incorrect : 'no command defined in [OnkyoClient] section - setting command to default !1SLI'")
+                Config.OnkyoClient.command = "!1SLI"
+            } else {
+                Config.OnkyoClient.command = configfile.sections["OnkyoClient"]!["command"]!
+            }
             if (configfile.sections["PowerButton"]!["nameOn"] == nil) {
-                NSLog("Error: OnkyoConfig.ini file incorrect : 'no nameOn defined in [PowerButton] section'")
+                NSLog("Warning: OnkyoConfig.ini file incorrect : 'no nameOn defined in [PowerButton] section - setting nameOn to default ON'")
                 Config.PowerButton.nameOn = "ON"
             } else {
                 Config.PowerButton.nameOn = configfile.sections["PowerButton"]!["nameOn"]!
             }
             if (configfile.sections["PowerButton"]!["nameOff"] == nil) {
-                NSLog("Error: OnkyoConfig.ini file incorrect : 'no nameOff defined in [PowerButton] section'")
+                NSLog("Warning: OnkyoConfig.ini file incorrect : 'no nameOff defined in [PowerButton] section - setting nameOff to default OFF'")
                 Config.PowerButton.nameOff = "OFF"
             } else {
                 Config.PowerButton.nameOff = configfile.sections["PowerButton"]!["nameOff"]!
             }
             if (configfile.sections["PowerButton"]!["commandOn"] == nil) {
-                NSLog("Error: OnkyoConfig.ini file incorrect : 'no commandOn defined in [PowerButton] section'")
-                Config.PowerButton.commandOn = ""
+                NSLog("Warning: OnkyoConfig.ini file incorrect : 'no commandOn defined in [PowerButton] section - setting commandOn to default !1PWR01'")
+                Config.PowerButton.commandOn = "!1PWR01"
             } else {
                 Config.PowerButton.commandOn = configfile.sections["PowerButton"]!["commandOn"]!
             }
             if (configfile.sections["PowerButton"]!["commandOff"] == nil) {
-                NSLog("Error: OnkyoConfig.ini file incorrect : 'no commandOff defined in [PowerButton] section'")
-                Config.PowerButton.commandOff = ""
+                NSLog("Warning: OnkyoConfig.ini file incorrect : 'no commandOff defined in [PowerButton] section - setting commandOff to default !1PWR00'")
+                Config.PowerButton.commandOff = "!1PWR00"
             } else {
                 Config.PowerButton.commandOff = configfile.sections["PowerButton"]!["commandOff"]!
             }
@@ -126,20 +133,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 Config.LocalButton.command = configfile.sections["LocalButton"]!["command"]!
             }
             if (configfile.sections["Volume"]!["maxVol"] == nil) {
-                NSLog("Error: OnkyoConfig.ini file incorrect : 'no maxVol defined in [Volume] section'")
-                Config.Volume.maxVol = "0"
+                NSLog("Warning: OnkyoConfig.ini file incorrect : 'no maxVol defined in [Volume] section - setting maxVol to default 80'")
+                Config.Volume.maxVol = "80"
             } else {
                 Config.Volume.maxVol = configfile.sections["Volume"]!["maxVol"]!
             }
             if (configfile.sections["Volume"]!["defaultVol"] == nil) {
-                NSLog("Error: OnkyoConfig.ini file incorrect : 'no defaultVol defined in [Volume] section'")
+                NSLog("Warning: OnkyoConfig.ini file incorrect : 'no defaultVol defined in [Volume] section - setting defaultVol to default 0'")
                 Config.Volume.defaultVol = "0"
             } else {
                 Config.Volume.defaultVol = configfile.sections["Volume"]!["defaultVol"]!
             }
             if (configfile.sections["Volume"]!["command"] == nil) {
-                NSLog("Error: OnkyoConfig.ini file incorrect : 'no command defined in [Volume] section'")
-                Config.Volume.command = ""
+                NSLog("Warning: OnkyoConfig.ini file incorrect : 'no command defined in [Volume] section - setting command to default !1MVL'")
+                Config.Volume.command = "!1MVL"
             } else {
                 Config.Volume.command = configfile.sections["Volume"]!["command"]!
             }
@@ -232,6 +239,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             fatalError("OnkyoConfig.ini file missing or incorrect - Check it")
         }
         
+        print(Config.OnkyoClient.command.lengthOfBytes(using: String.Encoding.ascii))
         if ((Config.OnkyoClient.address=="0.0.0.0")||(Config.OnkyoClient.name=="")) {
             NSLog("Warning: Forcing Onkyo receiver auto detection")
             let udp:OnkyoUDPClient = OnkyoUDPClient(address: "255.255.255.255", port: (Int32)(AppDelegate.Config.OnkyoClient.port)!)

@@ -52,6 +52,7 @@ extension OnkyoViewController {
     func clientConnect() {
         switch client.connect(timeout: (Int)(AppDelegate.Config.OnkyoClient.timeout)!) {
         case .success:
+            Name.stringValue = AppDelegate.Config.OnkyoClient.name
             powerButton.title = AppDelegate.Config.PowerButton.nameOn
             powerButton.state = NSControl.StateValue.on
             NSLog("Debug: Client is connected to %@:%@",AppDelegate.Config.OnkyoClient.address,AppDelegate.Config.OnkyoClient.port)
@@ -93,7 +94,7 @@ extension OnkyoViewController {
                 let NSstr = str as NSString
                 if (NSstr.contains(AppDelegate.Config.Volume.command)) { // Capture Volume Status
                     let spi = NSstr.range(of: AppDelegate.Config.Volume.command)
-                    let volhex = NSstr.substring(with: NSRange(location: spi.location+5, length: 2))
+                    let volhex = NSstr.substring(with: NSRange(location: spi.location + AppDelegate.Config.Volume.command.lengthOfBytes(using: String.Encoding.ascii), length: 2))
                     let voldec = Int(volhex, radix: 16)
                     NSLog("Debug: Reading Volume status <- value '%@'", String(describing: voldec))
                     volume.doubleValue = (Double)(voldec!)
@@ -105,14 +106,14 @@ extension OnkyoViewController {
     }
 
     func readButtonStatus() {
-        sendcmd(command: "!1SLIQSTN")
+        sendcmd(command: AppDelegate.Config.OnkyoClient.command+"QSTN")
         var txt = client.read(1024, timeout: (Int)(AppDelegate.Config.OnkyoClient.timeout)!)
         while (txt != nil) {
             let str = String(bytes: txt!, encoding: String.Encoding.ascii)!
             let NSstr = str as NSString
-            if (NSstr.contains("!1SLI")) { // Capture Volume Status
-                let spi = NSstr.range(of: "!1SLI")
-                let val = NSstr.substring(with: NSRange(location: spi.location, length: 7))
+            if (NSstr.contains(AppDelegate.Config.OnkyoClient.command)) { // Capture Command Status
+                let spi = NSstr.range(of: AppDelegate.Config.OnkyoClient.command)
+                let val = NSstr.substring(with: NSRange(location: spi.location, length: AppDelegate.Config.OnkyoClient.command.lengthOfBytes(using: String.Encoding.ascii) + 2))
                 NSLog("Debug: Reading command status <- value '%@'", val)
                 if (AppDelegate.Config.Button1.command.contains(val)) {
                     button1.state = NSControl.StateValue.on
@@ -209,7 +210,7 @@ extension OnkyoViewController {
     }
     
     @IBAction func local(_ sender: NSButton) {
-        if (powerButton.state == NSControl.StateValue.off) {
+        if ((powerButton.state == NSControl.StateValue.off) && (AppDelegate.Config.LocalButton.command != "exit")){
             localButton.state = NSControl.StateValue.off
             return
         }

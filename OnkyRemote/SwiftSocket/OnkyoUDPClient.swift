@@ -69,7 +69,7 @@ class OnkyoUDPClient : UDPClient {
                 NSLog("Debug: Reading command status <- auto detecting Onkyo ip adrress '%@'", ret[1])
             } else {
                 NSLog("Error: Reading command status <- no (ip) value")
-                ret[0] = "ERROR"
+                ret[0] = "FATAL ERROR"
             }
         } else  {
             NSLog("Debug: Forcing Onkyo ip address '%@'",ret[1])
