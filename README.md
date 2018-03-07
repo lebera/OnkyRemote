@@ -44,5 +44,7 @@ You can also edit content of the "OnkyoRemote.ini" file contained in this App co
 
 For instance a modified "OnkyoRemote.ini" could allow you to change this application behaviour and associated commands.
 
+![shot-specific](https://user-images.githubusercontent.com/36587077/37123020-03f902d2-2263-11e8-84e6-fec428d372e0.jpg)
+
 ![shot-specific](https://user-images.githubusercontent.com/36587077/36997327-989c49b8-20b9-11e8-8be0-7e301ad55614.jpg)
 
