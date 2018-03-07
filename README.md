@@ -46,5 +46,7 @@ For instance a modified "OnkyoRemote.ini" could allow you to change this applica
 
 ![shot-specific](https://user-images.githubusercontent.com/36587077/37123020-03f902d2-2263-11e8-84e6-fec428d372e0.jpg)
 
+[OnkyoConfig.ini.txt](https://github.com/lebera/OnkyRemote/files/1791197/OnkyoConfig.ini.txt)
+
 ![shot-specific](https://user-images.githubusercontent.com/36587077/36997327-989c49b8-20b9-11e8-8be0-7e301ad55614.jpg)
 
